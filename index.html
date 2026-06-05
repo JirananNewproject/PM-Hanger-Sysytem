@@ -70,7 +70,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
 /* ── Layout ── */
 .shell{display:flex;min-height:100vh}
 .sidebar{width:224px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;transition:transform .3s}
-.main{margin-left:224px;flex:1;padding:0 0 48px}
+.main{margin-left:224px;flex:1;padding:0 0 48px;overflow-x:hidden;min-width:0}
 .logo{padding:18px 18px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .logo-text{font-size:14px;font-weight:700;line-height:1.2;color:var(--text)}
@@ -286,11 +286,14 @@ tr:hover td{background:var(--surface2)}
 /* ── Responsive ── */
 @media(max-width:920px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:1100px){[style*="repeat(5,1fr)"]{grid-template-columns:repeat(3,1fr)!important}}
+
 @media(max-width:700px){
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0}.hamburger{display:flex}.sidebar-overlay{display:none}
   .page-header{padding:62px 16px 0;gap:10px}.grid{padding:10px 12px}.machines-section{padding:0 12px}
-  .grid-4,.grid-3,.grid-2{grid-template-columns:repeat(2,1fr)}
+  .grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}
+  .grid-2{grid-template-columns:1fr}
+  #view-dashboard .grid-2,#view-analytics .grid-2,#view-history .grid-2,#view-issues .grid-2{grid-template-columns:repeat(2,1fr)}
   .machines-grid{grid-template-columns:repeat(2,1fr)}.chart-container{height:180px}
   .search-box input{width:100px}
   .page-title{font-size:18px}
@@ -308,6 +311,8 @@ tr:hover td{background:var(--surface2)}
   .clock-sep{display:none}
   .theme-toggle{top:10px;right:10px;font-size:11px;padding:4px 10px}
   .hamburger{top:10px;left:10px}
+  /* ── Settings table scroll ── */
+  #view-settings .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 }
 @media(max-width:400px){
   .grid-4,.grid-3,.grid-2{grid-template-columns:1fr}
@@ -361,11 +366,31 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.7) sepia(1) 
 *{max-width:100%;box-sizing:border-box}
 img,canvas,iframe{max-width:100%}
 .shell{overflow-x:hidden}
-.main{overflow-x:hidden;min-width:0}
 @media(max-width:700px){
   [style*="padding:0 28px"],[style*="padding: 0 28px"]{padding-left:12px!important;padding-right:12px!important}
   [style*="padding:20px 28px"],[style*="padding: 20px 28px"]{padding:14px 12px!important}
   [style*="margin:0 28px"],[style*="margin: 0 28px"]{margin-left:12px!important;margin-right:12px!important}
+}
+
+/* ══ FIX: Export / Share / Settings — PC กว้างเกิน + มือถือ 1 col ══ */
+/* จำกัดความกว้างของ grid ใน 3 หน้านี้ ไม่ให้ยืดเต็มจอ PC */
+html body #view-export .grid,
+html body #view-share .grid,
+html body #view-settings .grid{
+  max-width:820px !important;
+  width:100% !important;
+}
+/* มือถือ: 1 คอลัมน์ */
+@media(max-width:700px){
+  html body #view-export .grid-2,
+  html body #view-share .grid-2{
+    grid-template-columns:1fr !important;
+  }
+}
+/* Settings: ตาราง scroll ได้บนมือถือ */
+html body #view-settings .table-wrap{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
 }
 </style>
 </head>
@@ -381,7 +406,7 @@ img,canvas,iframe{max-width:100%}
     <div class="logo-icon">⚙️</div>
     <div>
       <div class="logo-text">HANGER PM SYSTEM</div>
-      <div class="logo-sub">Online Data V8.3</div>
+      <div class="logo-sub">V8 · Google Sheets</div>
     </div>
   </div>
   <nav>
@@ -1535,16 +1560,22 @@ const GS_URL='https://script.google.com/macros/s/AKfycbzdDUpDHE3wFSdxZEsxSX1IWuD
 
 async function gsGet(action){
   try{
-    const res=await fetch(`${GS_URL}?action=${action}`);
+    const res=await fetch(`${GS_URL}?action=${action}`,{redirect:'follow'});
     const data=await res.json();
     if(data.error){console.error('gsGet error:',data.error);return[]}
-    return data;
+    return Array.isArray(data)?data:(data.data||[]);
   }catch(e){console.error('gsGet failed:',e);return[]}
 }
 async function gsPost(action,payload){
   try{
-    const res=await fetch(GS_URL,{method:'POST',body:JSON.stringify({action,payload})});
-    if(!res.ok){console.error('gsPost HTTP error:',res.status);toast('⚠️ บันทึกไม่สำเร็จ (HTTP '+res.status+') — ตรวจสอบ Google Sheet API','error');}
+    // Google Apps Script ต้องการ text/plain body และ redirect:follow (ไม่งั้น PC browsers บล็อก CORS preflight)
+    const res=await fetch(GS_URL,{
+      method:'POST',
+      redirect:'follow',
+      headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({action,payload})
+    });
+    if(!res.ok){console.error('gsPost HTTP error:',res.status);toast('⚠️ บันทึกไม่สำเร็จ (HTTP '+res.status+')','error');}
   }catch(e){console.error('gsPost failed:',e);toast('⚠️ บันทึกไม่สำเร็จ — ไม่สามารถเชื่อมต่อ Google Sheet ได้','error');}
 }
 
@@ -2660,9 +2691,12 @@ function toCSV(rows,headers,thaiHeaders){
   return '\uFEFF'+head+'\n'+rows.map(r=>headers.map(k=>`"${String(r[k]||'').replace(/"/g,'""')}"`).join(',')).join('\n');
 }
 function download(content,filename,type){
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([content],{type}));
-  a.download=filename;a.click();
+  a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},200);
 }
 function exportCSV(type){
   if(type==='pm'){
@@ -3290,11 +3324,13 @@ function deleteMachine(machineId){
 }
 
 function resetMachinesToDefault(){
-  if(!confirm('รีเซ็ตชื่อเครื่องทั้งหมดกลับเป็นค่าเริ่มต้น?'))return;
+  if(!confirm('รีเซ็ตชื่อเครื่องทั้งหมดกลับเป็นค่าเริ่มต้น?\n\nเครื่องทั้งหมดจะกลับเป็น Hanger 01–20\nการเปลี่ยนแปลงนี้จะบันทึกลง Google Sheet ด้วย'))return;
   MACHINES=DEFAULT_MACHINES.map(m=>({...m}));
+  // รีเซ็ต pmCycles ด้วย
+  MACHINES.forEach(m=>{pmCycles[m.id]=30;});
   saveMachines();
   renderSettingsPage();
-  toast('รีเซ็ตชื่อเครื่องแล้ว');
+  toast('✅ รีเซ็ตชื่อเครื่องเป็น Hanger 01–20 แล้ว');
 }
 
 // ══════════════════════════════════════════
@@ -3470,7 +3506,7 @@ async function initData(){
   loadEl.style.cssText='position:fixed;inset:0;background:rgba(28,22,18,.92);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;color:#f0e8dc;font-family:Sarabun,sans-serif';
   loadEl.innerHTML=`
     <div style="font-size:40px;animation:spin 1s linear infinite">⚙️</div>
-    <div style="font-size:17px;font-weight:700">กำลังโหลดข้อมูลจาก Sever</div>
+    <div style="font-size:17px;font-weight:700">กำลังโหลดข้อมูลจาก Google Sheet...</div>
     <div style="font-size:13px;color:#9e8f7e">กรุณารอสักครู่</div>
     <style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
   document.body.appendChild(loadEl);
@@ -3505,7 +3541,12 @@ async function initData(){
 
     // Machines
     if(machineData&&machineData.length){
-      MACHINES=machineData.map(m=>({id:Number(m.id),name:m.name,model:m.model}));
+      MACHINES=machineData.map(m=>({
+        id:Number(m.id)||0,
+        name:String(m.name||m.machineName||`Hanger ${String(Number(m.id)).padStart(2,'0')}`).trim(),
+        model:String(m.model||m.machineModel||`HNG-${(Number(m.id)||1)*5}`).trim()
+      })).filter(m=>m.id>0);
+      if(!MACHINES.length) MACHINES=[...DEFAULT_MACHINES];
       machineData.forEach(m=>{pmCycles[Number(m.id)]=Number(m.pmCycleDays)||30;});
     }
 
