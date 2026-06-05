@@ -992,17 +992,23 @@ img,canvas,iframe{max-width:100%}
 <div class="view" id="view-history">
   <div class="page-header">
     <div><div class="page-title">ประวัติ <span>PM</span></div><div class="page-sub">บันทึกการทำ PM ทั้งหมด</div></div>
-    <div class="header-actions">
-      <div class="search-box"><span style="color:var(--muted);font-size:14px">🔍</span><input type="text" id="hist-search" placeholder="ค้นหาเครื่อง/ช่าง..." oninput="filterHistory()" style="width:160px"></div>
-      <select class="form-control" id="hist-machine" onchange="filterHistory()" style="width:auto;padding:7px 12px"><option value="all">ทุกเครื่อง</option><option value="1">Hanger 01</option><option value="2">Hanger 02</option><option value="3">Hanger 03</option><option value="4">Hanger 04</option><option value="5">Hanger 05</option><option value="6">Hanger 06</option><option value="7">Hanger 07</option><option value="8">Hanger 08</option><option value="9">Hanger 09</option><option value="10">Hanger 10</option><option value="11">Hanger 11</option><option value="12">Hanger 12</option><option value="13">Hanger 13</option><option value="14">Hanger 14</option><option value="15">Hanger 15</option><option value="16">Hanger 16</option><option value="17">Hanger 17</option><option value="18">Hanger 18</option><option value="19">Hanger 19</option><option value="20">Hanger 20</option></select>
-      <input type="date" class="form-control" id="hist-from" style="width:auto" onchange="filterHistory()">
-      <input type="date" class="form-control" id="hist-to" style="width:auto" onchange="filterHistory()">
-      <button class="btn btn-secondary btn-sm" onclick="clearHistoryFilter()">ล้าง</button>
+  </div>
+  <div style="padding:0 28px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center" id="hist-filter-bar">
+    <div class="search-box" style="flex:1;min-width:140px">
+      <span style="color:var(--muted);font-size:14px">🔍</span>
+      <input type="text" id="hist-search" placeholder="ค้นหาเครื่อง/ช่าง..." oninput="filterHistory()" style="width:100%">
     </div>
+    <select class="form-control" id="hist-machine" onchange="filterHistory()" style="width:auto;padding:7px 12px;flex:1;min-width:120px"><option value="all">ทุกเครื่อง</option><option value="1">Hanger 01</option><option value="2">Hanger 02</option><option value="3">Hanger 03</option><option value="4">Hanger 04</option><option value="5">Hanger 05</option><option value="6">Hanger 06</option><option value="7">Hanger 07</option><option value="8">Hanger 08</option><option value="9">Hanger 09</option><option value="10">Hanger 10</option><option value="11">Hanger 11</option><option value="12">Hanger 12</option><option value="13">Hanger 13</option><option value="14">Hanger 14</option><option value="15">Hanger 15</option><option value="16">Hanger 16</option><option value="17">Hanger 17</option><option value="18">Hanger 18</option><option value="19">Hanger 19</option><option value="20">Hanger 20</option></select>
+    <input type="date" class="form-control" id="hist-from" style="width:auto;min-width:130px" onchange="filterHistory()">
+    <input type="date" class="form-control" id="hist-to" style="width:auto;min-width:130px" onchange="filterHistory()">
+    <button class="btn btn-secondary btn-sm" onclick="clearHistoryFilter()">ล้าง</button>
   </div>
   <div class="grid">
     <div style="font-size:12px;color:var(--muted);padding:0 4px" id="hist-count">แสดง 22 รายการ</div>
-    <div class="card">
+    <!-- Mobile card layout -->
+    <div id="history-card-wrap" style="display:none"></div>
+    <!-- Desktop table layout -->
+    <div class="card" id="history-table-wrap">
       <div class="table-wrap">
         <table><thead><tr><th>วันที่</th><th>กะ</th><th>เครื่อง</th><th>ช่าง</th><th>รายละเอียด</th><th>ดำเนินการ</th></tr></thead>
         <tbody id="history-tbody"><tr>
@@ -1161,7 +1167,8 @@ img,canvas,iframe{max-width:100%}
       <td><button class="btn btn-sm btn-danger" onclick="promptDeletePM(&#39;mpz7jpqcnqxs&#39;)">🗑 ลบ</button></td>
     </tr></tbody></table>
       </div>
-      <div id="history-empty" class="empty-state" style="display:none">
+    </div>
+    <div id="history-empty" class="empty-state" style="display:none">
         <div class="empty-icon">📋</div><div class="empty-text">ไม่พบประวัติ PM</div><div class="empty-sub">เริ่มบันทึก PM เพื่อดูประวัติที่นี่</div>
       </div>
     </div>
@@ -2500,6 +2507,45 @@ function renderHistory(records){
   empty.style.display='none';
   const countEl=document.getElementById('hist-count');
   if(countEl) countEl.textContent=`แสดง ${data.length} รายการ`;
+  const isMobile=window.innerWidth<=700;
+  if(isMobile){
+    // Card layout for mobile
+    const wrap=document.getElementById('history-tbody');
+    // Replace tbody with div container for mobile cards
+    const card=document.getElementById('history-card-wrap');
+    const tableWrap=document.getElementById('history-table-wrap');
+    if(card&&tableWrap){
+      tableWrap.style.display='none';
+      card.style.display='block';
+      card.innerHTML=data.map(r=>{
+        const m=MACHINES.find(x=>x.id===r.machineId);
+        const sb=r.shift==='night'
+          ?'<span class="badge badge-night" style="font-size:11px">🌙 กะดึก</span>'
+          :'<span class="badge badge-day" style="font-size:11px">🌅 กะเช้า</span>';
+        const checklist=r.checklist?.length?`<div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.7">${r.checklist.map(c=>`✓ ${c}`).join('<br>')}</div>`:'';
+        const note=r.note?`<div style="font-size:11px;margin-top:6px;padding:6px 8px;background:var(--surface2);border-radius:6px;border-left:2px solid var(--accent3);color:var(--accent3)">📝 ${r.note}</div>`:'';
+        return`<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px">
+            <div>
+              <div style="font-size:15px;font-weight:700;color:var(--text)">${m?.name||'?'}</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">📅 ${fmt(r.date)} &nbsp;·&nbsp; 👷 ${r.tech||'—'}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+              ${sb}
+              <button class="btn btn-sm btn-danger" style="padding:4px 10px;font-size:11px" onclick="promptDeletePM('${r.id}')">🗑 ลบ</button>
+            </div>
+          </div>
+          ${checklist}${note}
+        </div>`;
+      }).join('');
+      return;
+    }
+  }
+  // Desktop: table layout
+  const tableWrap=document.getElementById('history-table-wrap');
+  const card=document.getElementById('history-card-wrap');
+  if(tableWrap) tableWrap.style.display='';
+  if(card) card.style.display='none';
   tbody.innerHTML=data.map(r=>{
     const m=MACHINES.find(x=>x.id===r.machineId);
     const sb=r.shift==='night'?'<span class="badge badge-night">🌙 กะดึก</span>':'<span class="badge badge-day">🌅 กะเช้า</span>';
