@@ -345,9 +345,11 @@ tr:hover td{background:var(--surface2)}
 
 /* ── Overdue / Days since PM ── */
 .days-since{font-size:10px;font-family:var(--mono);padding:2px 6px;border-radius:4px;font-weight:600;white-space:nowrap}
-.days-ok{background:rgba(34,197,94,.12);color:var(--success)}
+.days-today{background:rgba(34,197,94,.18);color:var(--success)}
+.days-ok{background:rgba(99,179,237,.18);color:#3b9eca}
 .days-warn{background:rgba(245,158,11,.15);color:var(--warn)}
 .days-over{background:rgba(239,68,68,.15);color:var(--danger)}
+body.light-mode .days-ok{background:rgba(37,99,235,.1);color:#1d5fa6}
 .machine-card.overdue-card{border-color:rgba(239,68,68,.5)!important;box-shadow:0 0 0 1px rgba(239,68,68,.2)}
 
 /* ── PM Tooltip ── */
@@ -570,7 +572,7 @@ img,canvas,iframe{max-width:100%}
       <div class="mname">Hanger 04</div>
       <div class="mfooter"><span class="mtag mtag-day">🌅 PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
       <div style="font-size:10px;color:var(--muted);margin-top:4px">📅 02/06/2026 · Maintenance Shift A</div>
-      <div style="margin-top:4px"><span class="days-since days-ok">3วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 3วันที่แล้ว</span></div>
     </div><div class="machine-card  overdue-card" onclick="openMachineDetail(5)" style="cursor:pointer">
       <div style="position:absolute;bottom:7px;right:7px;font-size:9px;background:rgba(239,68,68,.2);color:var(--danger);padding:1px 5px;border-radius:3px;font-weight:700">เกินรอบ</div>
       <div class="mnum">#05 · HNG-220</div>
@@ -584,42 +586,42 @@ img,canvas,iframe{max-width:100%}
       <div class="mname">Hanger 06</div>
       <div class="mfooter"><span class="mtag mtag-night">🌙 PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
       <div style="font-size:10px;color:var(--muted);margin-top:4px">📅 01/06/2026 · Maintenance Shift B</div>
-      <div style="margin-top:4px"><span class="days-since days-ok">4วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 4วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(7)" style="cursor:pointer">
       
       <div class="mnum">#07 · HNG-230</div>
       <div class="mname">Hanger 07</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">8วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 8วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(8)" style="cursor:pointer">
       
       <div class="mnum">#08 · HNG-235</div>
       <div class="mname">Hanger 08</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(9)" style="cursor:pointer">
       
       <div class="mnum">#09 · HNG-240</div>
       <div class="mname">Hanger 09</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">11วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 11วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(10)" style="cursor:pointer">
       
       <div class="mnum">#10 · HNG-245</div>
       <div class="mname">Hanger 10</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card pm-day" onclick="openMachineDetail(11)" style="cursor:pointer">
       
       <div class="mnum">#11 · HNG-250</div>
       <div class="mname">Hanger 11</div>
       <div class="mfooter"><span class="mtag mtag-day">🌅 PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
       <div style="font-size:10px;color:var(--muted);margin-top:4px">📅 03/06/2026 · Maintenace Shift A</div>
-      <div style="margin-top:4px"><span class="days-since days-ok">2วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 2วันที่แล้ว</span></div>
     </div><div class="machine-card  overdue-card" onclick="openMachineDetail(12)" style="cursor:pointer">
       <div style="position:absolute;bottom:7px;right:7px;font-size:9px;background:rgba(239,68,68,.2);color:var(--danger);padding:1px 5px;border-radius:3px;font-weight:700">เกินรอบ</div>
       <div class="mnum">#12 · HNG-255</div>
@@ -633,14 +635,14 @@ img,canvas,iframe{max-width:100%}
       <div class="mname">Hanger 13</div>
       <div class="mfooter"><span class="mtag mtag-day">🌅 PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
       <div style="font-size:10px;color:var(--muted);margin-top:4px">📅 01/06/2026 · Maintenance Shift A</div>
-      <div style="margin-top:4px"><span class="days-since days-ok">4วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 4วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(14)" style="cursor:pointer">
       
       <div class="mnum">#14 · HNG-265</div>
       <div class="mname">Hanger 14</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">9วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 9วันที่แล้ว</span></div>
     </div><div class="machine-card  overdue-card" onclick="openMachineDetail(15)" style="cursor:pointer">
       <div style="position:absolute;bottom:7px;right:7px;font-size:9px;background:rgba(239,68,68,.2);color:var(--danger);padding:1px 5px;border-radius:3px;font-weight:700">เกินรอบ</div>
       <div class="mnum">#15 · HNG-270</div>
@@ -654,35 +656,35 @@ img,canvas,iframe{max-width:100%}
       <div class="mname">Hanger 16</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">9วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 9วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(17)" style="cursor:pointer">
       
       <div class="mnum">#17 · HNG-280</div>
       <div class="mname">Hanger 17</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">7วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 7วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(18)" style="cursor:pointer">
       
       <div class="mnum">#18 · HNG-285</div>
       <div class="mname">Hanger 18</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card " onclick="openMachineDetail(19)" style="cursor:pointer">
       
       <div class="mnum">#19 · HNG-290</div>
       <div class="mname">Hanger 19</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
       
-      <div style="margin-top:4px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card pm-night" onclick="openMachineDetail(20)" style="cursor:pointer">
       
       <div class="mnum">#20 · HNG-295</div>
       <div class="mname">Hanger 20</div>
       <div class="mfooter"><span class="mtag mtag-night">🌙 PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
       <div style="font-size:10px;color:var(--muted);margin-top:4px">📅 02/06/2026 · Maintenance Shift B</div>
-      <div style="margin-top:4px"><span class="days-since days-ok">3วันที่แล้ว</span></div>
+      <div style="margin-top:4px"><span class="days-since days-ok">📅 3วันที่แล้ว</span></div>
     </div></div>
   </div>
   <div class="grid" style="margin-top:0">
@@ -789,7 +791,7 @@ img,canvas,iframe{max-width:100%}
       <div class="mnum">#04 · HNG-215</div>
       <div class="mname">Hanger 04</div>
       <div class="mfooter"><span class="mtag" style="background:rgba(200,169,110,.15);color:var(--accent3)">✓ PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">3วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 3วันที่แล้ว</span></div>
     </div><div class="machine-card  overdue-card" data-machine-id="5" onclick="batchMode?toggleBatchSelect(5,this):openPMModal(5)" oncontextmenu="openMachineDetail(5);return false">
       <div style="position:absolute;bottom:7px;right:7px;font-size:9px;background:rgba(239,68,68,.2);color:var(--danger);padding:1px 5px;border-radius:3px;font-weight:700">เกินรอบ</div>
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(5,this.closest(&#39;.machine-card&#39;))">
@@ -803,42 +805,42 @@ img,canvas,iframe{max-width:100%}
       <div class="mnum">#06 · HNG-225</div>
       <div class="mname">Hanger 06</div>
       <div class="mfooter"><span class="mtag" style="background:rgba(200,169,110,.15);color:var(--accent3)">✓ PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">4วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 4วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="7" onclick="batchMode?toggleBatchSelect(7,this):openPMModal(7)" oncontextmenu="openMachineDetail(7);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(7,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#07 · HNG-230</div>
       <div class="mname">Hanger 07</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">8วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 8วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="8" onclick="batchMode?toggleBatchSelect(8,this):openPMModal(8)" oncontextmenu="openMachineDetail(8);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(8,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#08 · HNG-235</div>
       <div class="mname">Hanger 08</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="9" onclick="batchMode?toggleBatchSelect(9,this):openPMModal(9)" oncontextmenu="openMachineDetail(9);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(9,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#09 · HNG-240</div>
       <div class="mname">Hanger 09</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">11วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 11วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="10" onclick="batchMode?toggleBatchSelect(10,this):openPMModal(10)" oncontextmenu="openMachineDetail(10);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(10,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#10 · HNG-245</div>
       <div class="mname">Hanger 10</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="11" onclick="batchMode?toggleBatchSelect(11,this):openPMModal(11)" oncontextmenu="openMachineDetail(11);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(11,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#11 · HNG-250</div>
       <div class="mname">Hanger 11</div>
       <div class="mfooter"><span class="mtag" style="background:rgba(200,169,110,.15);color:var(--accent3)">✓ PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">2วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 2วันที่แล้ว</span></div>
     </div><div class="machine-card  overdue-card" data-machine-id="12" onclick="batchMode?toggleBatchSelect(12,this):openPMModal(12)" oncontextmenu="openMachineDetail(12);return false">
       <div style="position:absolute;bottom:7px;right:7px;font-size:9px;background:rgba(239,68,68,.2);color:var(--danger);padding:1px 5px;border-radius:3px;font-weight:700">เกินรอบ</div>
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(12,this.closest(&#39;.machine-card&#39;))">
@@ -852,14 +854,14 @@ img,canvas,iframe{max-width:100%}
       <div class="mnum">#13 · HNG-260</div>
       <div class="mname">Hanger 13</div>
       <div class="mfooter"><span class="mtag" style="background:rgba(200,169,110,.15);color:var(--accent3)">✓ PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">4วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 4วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="14" onclick="batchMode?toggleBatchSelect(14,this):openPMModal(14)" oncontextmenu="openMachineDetail(14);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(14,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#14 · HNG-265</div>
       <div class="mname">Hanger 14</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">9วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 9วันที่แล้ว</span></div>
     </div><div class="machine-card  overdue-card" data-machine-id="15" onclick="batchMode?toggleBatchSelect(15,this):openPMModal(15)" oncontextmenu="openMachineDetail(15);return false">
       <div style="position:absolute;bottom:7px;right:7px;font-size:9px;background:rgba(239,68,68,.2);color:var(--danger);padding:1px 5px;border-radius:3px;font-weight:700">เกินรอบ</div>
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(15,this.closest(&#39;.machine-card&#39;))">
@@ -873,35 +875,35 @@ img,canvas,iframe{max-width:100%}
       <div class="mnum">#16 · HNG-275</div>
       <div class="mname">Hanger 16</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">9วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 9วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="17" onclick="batchMode?toggleBatchSelect(17,this):openPMModal(17)" oncontextmenu="openMachineDetail(17);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(17,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#17 · HNG-280</div>
       <div class="mname">Hanger 17</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">7วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 7วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="18" onclick="batchMode?toggleBatchSelect(18,this):openPMModal(18)" oncontextmenu="openMachineDetail(18);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(18,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#18 · HNG-285</div>
       <div class="mname">Hanger 18</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="19" onclick="batchMode?toggleBatchSelect(19,this):openPMModal(19)" oncontextmenu="openMachineDetail(19);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(19,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#19 · HNG-290</div>
       <div class="mname">Hanger 19</div>
       <div class="mfooter"><span class="mtag mtag-pending">รอ PM</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">10วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 10วันที่แล้ว</span></div>
     </div><div class="machine-card " data-machine-id="20" onclick="batchMode?toggleBatchSelect(20,this):openPMModal(20)" oncontextmenu="openMachineDetail(20);return false">
       
       <input type="checkbox" class="batch-chk" onclick="event.stopPropagation();toggleBatchSelect(20,this.closest(&#39;.machine-card&#39;))">
       <div class="mnum">#20 · HNG-295</div>
       <div class="mname">Hanger 20</div>
       <div class="mfooter"><span class="mtag" style="background:rgba(200,169,110,.15);color:var(--accent3)">✓ PM แล้ว</span><span style="font-size:10px;color:var(--muted);font-family:var(--mono)">1ครั้ง</span><div class="msdot"></div></div>
-      <div style="margin-top:5px"><span class="days-since days-ok">3วันที่แล้ว</span></div>
+      <div style="margin-top:5px"><span class="days-since days-ok">📅 3วันที่แล้ว</span></div>
     </div></div></div>
 </div>
 
@@ -3696,9 +3698,9 @@ function daysSinceTag(machineId){
   const days=daysSinceLastPM(machineId);
   const cycle=pmCycles[machineId]||30;
   if(days===null)return`<span class="days-since days-over">ไม่มีประวัติ</span>`;
-  if(days===0)return`<span class="days-since days-ok">วันนี้</span>`;
+  if(days===0)return`<span class="days-since days-today">✓ วันนี้</span>`;
   const cls=days>=cycle?'days-over':(days>=cycle*0.8?'days-warn':'days-ok');
-  return`<span class="days-since ${cls}">${days}วันที่แล้ว</span>`;
+  return`<span class="days-since ${cls}">📅 ${days}วันที่แล้ว</span>`;
 }
 function isOverdue(machineId){
   const days=daysSinceLastPM(machineId);
